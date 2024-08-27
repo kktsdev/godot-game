@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=3 uid="uid://b383dt3qrfofk"]
+
+[ext_resource type="Script" path="res://src/scripts/player.gd" id="1_07fda"]
+[ext_resource type="Texture2D" uid="uid://djbd732t1l6kc" path="res://icon.svg" id="1_rsfb3"]
+[ext_resource type="PackedScene" uid="uid://uhrx1xqfav3e" path="res://src/components/health.tscn" id="3_l20bu"]
+[ext_resource type="PackedScene" uid="uid://busnm43hnwwm1" path="res://src/components/hitbox.tscn" id="4_somvt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_25rcy"]
+radius = 82.5651
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3jncg"]
+radius = 67.3647
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 4
+script = ExtResource("1_07fda")
+
+[node name="Health" parent="." instance=ExtResource("3_l20bu")]
+
+[node name="Hitbox" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_somvt")]
+collision_layer = 8
+health_component = NodePath("../Health")
+
+[node name="Collision" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_25rcy")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_3jncg")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_rsfb3")
+
+[node name="Camera" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
