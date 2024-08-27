@@ -11,6 +11,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
   velocity = velocity.move_toward(Vector2.ZERO, BULLET_FRICTION * delta)
   position += velocity * delta
+  if velocity == Vector2.ZERO:
+    queue_free()
 
 func _on_area_entered(area: Area2D) -> void:
   if area is HitboxComponent:
